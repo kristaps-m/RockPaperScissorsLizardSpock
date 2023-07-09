@@ -13,10 +13,10 @@
     Paper disproves Spock.
     Spock vaporizes Rock.
 
-    :exclamation:To become the winner, you need to have the highest victory count
+:exclamation:To become the winner, you need to have the highest victory count
 
 ## To run game:
-### Download and install!:exclamation:
+### Download and install:exclamation::exclamation:
 Python (Download the latest version for Windows)<br>
 https://www.python.org/downloads/
 
