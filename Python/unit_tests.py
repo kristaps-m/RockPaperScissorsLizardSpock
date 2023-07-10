@@ -1,6 +1,6 @@
 import unittest
 import constants
-from main import RockPaperScissorsLizardSpock
+from rock_paper_scissors_lizard_spock import RockPaperScissorsLizardSpock
 # python -m unittest unit_tests.py
 
 class RockPaperScissorsLizardSpockTestCase(unittest.TestCase):
