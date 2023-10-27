@@ -37,4 +37,19 @@ class PrintTools
     puts "Their names are #{computer_names[1, computer_names.length].join(', ')}!"
     puts "You can pick how many opponents to play and how many rounds against them!"
   end
+
+  def print_player_name_and_victories(sorted_dict, max_name_length)
+    #for name, wins in sorted_dict.items()
+    sorted_dict.each do |name, wins|
+      puts "Player: #{name} Wins: #{wins}"
+
+      # padded_name = name.ljust(max_name_length, '.')
+      # if constants.PLAYER_NAME in padded_name
+      #   #print("Player: #{constants.GREEN_COLOR}#{padded_name}#{constants.RESET_COLOR} Wins: {wins}")
+      #   puts "Player: #{constants.GREEN_COLOR}#{padded_name}#{constants.RESET_COLOR} Wins: {wins}"
+      # else
+      #   puts "Player: #{padded_name} Wins: #{wins}"
+      # end
+    end
+  end
 end
