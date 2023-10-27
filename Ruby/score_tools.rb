@@ -26,7 +26,7 @@ class ScoreTools
   end
 
   def generate_player_names_and_games_won_dictionary(number_of_opponents)
-    #@player_names_and_games_won = {k: 0 for k in @players[number_of_opponents + 1]}
+    #@player_names_and_games_won = {k: 0 for k in @players[:number_of_opponents + 1]}
     @players[0, number_of_opponents].each do |key|
       @player_names_and_games_won[key] = 0
     end
@@ -71,8 +71,8 @@ class ScoreTools
 
   # is this the best way to get index?
   def update_scores(player1, score1, player2, score2)
-    index1 = @players.keys.index(player1)
-    index2 = @players.keys.index(player2)
+    index1 = @players.index(player1)
+    index2 = @players.index(player2)
     @scores[index1][index2] = Scores.new(player1, score1, player2, score2)
     @scores[index2][index1] = Scores.new(player2, score2, player1, score1)
   end
@@ -87,5 +87,9 @@ class ScoreTools
 
   def ret_shet
     return "#{@player_names_and_games_won},\n\n #{@scores}"
+  end
+
+  def get_scores
+    @scores
   end
 end

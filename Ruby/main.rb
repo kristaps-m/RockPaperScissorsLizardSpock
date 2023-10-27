@@ -21,16 +21,16 @@ def foo
   # a2 = /\A\d+\z/.match?('0.1')
   # a3 = /\A\d+\z/.match?('aaff')
   # puts a1, a2, a3
-  st = ScoreTools.new()
-  st.create_scores_list(6)
-  st.generate_player_names_and_games_won_dictionary(6)
-  puts st.ret_shet
+  # st = ScoreTools.new()
+  # st.create_scores_list(6)
+  # st.generate_player_names_and_games_won_dictionary(6)
+  # puts st.ret_shet
 end
 
 if __FILE__ == $0
   foo
   game = RockPaperScissorsLizardSpock.new()
-  game.play_game()
+  game.play_game
   # TESTS
   # puts game.get_computer_choice
   # bar()

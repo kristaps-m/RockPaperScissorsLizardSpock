@@ -5,4 +5,20 @@ class Scores
     @player2 = player2
     @score2 = score2
   end
+
+  def player1
+    @player1
+  end
+
+  def player2
+    @player2
+  end
+
+  def score1
+    @score1
+  end
+
+  def score2
+    @score2
+  end
 end
