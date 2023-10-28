@@ -124,7 +124,7 @@ class RockPaperScissorsLizardSpock
         puts "game_nr = #{game_nr}"
         result = determine_winner(player_choice, computer_choice)
         puts result
-        puts "is rounds equal to zero#{is_rounds_equal_to_zero?(true, result, number_of_rounds_with_each_opponent, player_name, @computer_names[game_nr])}"
+        #puts "is rounds equal to zero#{is_rounds_equal_to_zero?(true, result, number_of_rounds_with_each_opponent, player_name, @computer_names[game_nr])}"
         if is_rounds_equal_to_zero?(true, result, number_of_rounds_with_each_opponent, player_name, @computer_names[game_nr])
           break
         end
