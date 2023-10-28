@@ -61,7 +61,9 @@ class RockPaperScissorsLizardSpock
     end
   end
 
-  def is_rounds_equal_to_zero(is_human_playing, result, number_of_rounds_with_each_opponent, player_name, computer_name)
+  def is_rounds_equal_to_zero?(is_human_playing, result, number_of_rounds_with_each_opponent, player_name, computer_name)
+    puts "(result.include? \"It's a tie!\") #{result.include? "It's a tie!"}"
+    puts "@rounds = #{@rounds}"
     if !(result.include? "It's a tie!")
       @rounds -= 1
       if is_human_playing
@@ -79,10 +81,10 @@ class RockPaperScissorsLizardSpock
       @computer_score = 0
       @rounds = number_of_rounds_with_each_opponent
 
-      return false
+      return true#false
     end
 
-    return true
+    return false#true
   end
 
   # def play_game()
@@ -113,22 +115,24 @@ class RockPaperScissorsLizardSpock
       puts "\n\n"
       puts "This is game #{game_nr} against #{@computer_names[game_nr]}"
       while true
-        computer_choice = get_computer_choice()
+        computer_choice = get_computer_choice
         puts "----->>>>> " + computer_choice  # print computer choice for testing
         player_choice = get_player_choice_from_input(@round_against_computer)
         # player_choice = @score_tools.automatically_pick_winning_move_against_computer(computer_choice)
         puts "You chose: #{player_choice}"
         puts "Computer #{@computer_names[game_nr]} chose: #{computer_choice}"
+        puts "game_nr = #{game_nr}"
         result = determine_winner(player_choice, computer_choice)
         puts result
-
-        if is_rounds_equal_to_zero(true, result, number_of_rounds_with_each_opponent, player_name, @computer_names[game_nr])
+        puts "is rounds equal to zero#{is_rounds_equal_to_zero?(true, result, number_of_rounds_with_each_opponent, player_name, @computer_names[game_nr])}"
+        if is_rounds_equal_to_zero?(true, result, number_of_rounds_with_each_opponent, player_name, @computer_names[game_nr])
           break
         end
       end
     end
     # remaining computers play against each other
     #for computer_game_index in range(1, number_of_opponents + 1)
+    # if n.o.o = 5 then, 1,2,3,4,5
     for computer_game_index in 1..number_of_opponents
       computer_main_player_name = @computer_names[computer_game_index]
       #for computer_opponent_index in range(1 + computer_game_index, number_of_opponents + 1):
@@ -139,7 +143,7 @@ class RockPaperScissorsLizardSpock
           cpu_played_against_choice = get_computer_choice()
           result = determine_winner(computer_main_player_choice, cpu_played_against_choice)
 
-          if is_rounds_equal_to_zero(false, result, number_of_rounds_with_each_opponent, computer_main_player_name, cpu_played_against_name)
+          if is_rounds_equal_to_zero?(false, result, number_of_rounds_with_each_opponent, computer_main_player_name, cpu_played_against_name)
             break
           end
         end
@@ -148,10 +152,10 @@ class RockPaperScissorsLizardSpock
     @print_tools.print_scores(@score_tools.get_scores)
     @score_tools.count_games_won_for_each_player(number_of_opponents)
     puts "-------"
-    @score_tools.sort_and_print_player_names_and_games_won()
+    @score_tools.sort_and_print_player_names_and_games_won
 
-    if @score_tools.have_you_won_the_game_with_most_wins()
-      puts f"\nYou won all {number_of_opponents} computer opponents!\nCongratulations!"
+    if @score_tools.have_you_won_the_game_with_most_wins
+      puts "\nYou won all #{number_of_opponents} computer opponents!\nCongratulations!"
     else
       puts "\nYou lost against computer!"
     end

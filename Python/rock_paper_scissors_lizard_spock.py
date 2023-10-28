@@ -88,14 +88,16 @@ class RockPaperScissorsLizardSpock:
             print(f"This is game {game_nr} against {self.computer_names[game_nr]}")
             while True:
                 computer_choice = self.get_computer_choice()
-                # print("----->>>>> " + computer_choice)  # print computer choice for testing
+                print("----->>>>> " + computer_choice)  # print computer choice for testing
                 player_choice = self.get_player_choice_from_input(self.round_against_computer)
                 # player_choice = self.score_tools.automatically_pick_winning_move_against_computer(computer_choice)
                 print(f"You chose: {player_choice}")
                 print(f"Computer {self.computer_names[game_nr]} chose: {computer_choice}")
+                print(f"game_nr = {game_nr}")
                 result = self.determine_winner(player_choice, computer_choice)
                 print(result)
-
+                print("IS rounds equal to zero",self.is_rounds_equal_to_zero(True, result, number_of_rounds_with_each_opponent,
+                                                player_name, self.computer_names[game_nr]))
                 if self.is_rounds_equal_to_zero(True, result, number_of_rounds_with_each_opponent,
                                                 player_name, self.computer_names[game_nr]):
                     break
