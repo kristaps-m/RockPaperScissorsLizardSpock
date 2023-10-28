@@ -3,11 +3,10 @@ require_relative 'constants'
 class PrintTools
 
   def print_scores(scores)
-    #for row in scores
+    #for row in scores # Python
     scores.each do |row|
       puts "----------------------------------------------------------------"
       row.each do |score|
-      #for score in row
         if !score.nil?
           puts "#{score.player1} vs #{score.player2}: #{score.score1}-#{score.score2}"
         else
@@ -29,8 +28,7 @@ class PrintTools
       return result_start + "Computer wins!" + result_end
     end
   end
-  # array.map { |string| string.upcase } --- ', '.join(i.capitalize() for i in choices)
-  # ', '.join(computer_names[1:])
+
   def print_beginning_of_game(choices, computer_names)
     puts "Welcome to #{choices.map {|ch| ch.capitalize}.join(', ')}"
     puts "You can play the game against computer players. And they will play against each other."
@@ -39,17 +37,14 @@ class PrintTools
   end
 
   def print_player_name_and_victories(sorted_dict, max_name_length)
-    #for name, wins in sorted_dict.items()
+    #for name, wins in sorted_dict.items() # Python
     sorted_dict.each do |name, wins|
-      puts "Player: #{name} Wins: #{wins}"
-
-      # padded_name = name.ljust(max_name_length, '.')
-      # if constants.PLAYER_NAME in padded_name
-      #   #print("Player: #{constants.GREEN_COLOR}#{padded_name}#{constants.RESET_COLOR} Wins: {wins}")
-      #   puts "Player: #{constants.GREEN_COLOR}#{padded_name}#{constants.RESET_COLOR} Wins: {wins}"
-      # else
-      #   puts "Player: #{padded_name} Wins: #{wins}"
-      # end
+      padded_name = name.ljust(max_name_length, '.')
+      if name.include? PLAYER_NAME
+        puts "Player: " + "#{padded_name}".green + " Wins: #{wins}"
+      else
+        puts "Player: #{padded_name} Wins: #{wins}"
+      end
     end
   end
 end
