@@ -102,8 +102,8 @@ class RockPaperScissorsLizardSpock
       while true
         computer_choice = get_computer_choice
         # puts "----->>>>> " + computer_choice  # print computer choice for testing
-        # player_choice = get_player_choice_from_input(@round_against_computer)
-        player_choice = @score_tools.automatically_pick_winning_move_against_computer(computer_choice)
+        player_choice = get_player_choice_from_input(@round_against_computer)
+        # player_choice = @score_tools.automatically_pick_winning_move_against_computer(computer_choice)
         puts "You chose: #{player_choice}"
         puts "Computer #{@computer_names[game_nr]} chose: #{computer_choice}"
         result = determine_winner(player_choice, computer_choice)
@@ -115,7 +115,7 @@ class RockPaperScissorsLizardSpock
       end
     end
 
-    # remaining computers play against each other
+    # ---- remaining computers play against each other ----
     for computer_game_index in 1..number_of_opponents
       computer_main_player_name = @computer_names[computer_game_index]
       #for computer_opponent_index in range(1 + computer_game_index, number_of_opponents + 1):
@@ -132,7 +132,8 @@ class RockPaperScissorsLizardSpock
         end
       end
     end
-    @print_tools.print_scores(@score_tools.get_scores)
+
+    @print_tools.print_scores(@score_tools.scores)
     @score_tools.count_games_won_for_each_player(number_of_opponents)
     puts "-------"
     @score_tools.sort_and_print_player_names_and_games_won

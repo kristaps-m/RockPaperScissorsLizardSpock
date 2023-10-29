@@ -3,6 +3,7 @@ require_relative 'scores'
 require_relative 'print_tools'
 
 class ScoreTools
+  attr_reader :scores
   def initialize
     @players = GAME_PARTICIPANTS_NAMES
     @scores = []
@@ -81,13 +82,5 @@ class ScoreTools
     random_winning_choice = winning_choices.sample # random.choice(winning_choices) # Python
 
     return random_winning_choice
-  end
-
-  def ret_shet
-    return "#{@player_names_and_games_won},\n\n #{@scores}"
-  end
-
-  def get_scores
-    @scores
   end
 end
