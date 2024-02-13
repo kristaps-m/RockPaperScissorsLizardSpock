@@ -12,12 +12,12 @@
             {"lizard", new string[]{"paper", "spock"}},
             {"spock", new string[]{"rock", "scissors" }},
         };
-
         private readonly Random rand = new Random();
-        //public RockPaperScissorsLizardSpock()
-        //{
+        public int PlayerScore { get; set; } = 0;
+        public int ComputerScore { get; set; } = 0;
+        public int Rounds { get; set; } = 0;
+        public int RoundAgainstComputer { get; set; } = 1;
 
-        //}
         public string GetPlayerChoiseFromInput(int roundNumber)
         {
             bool validChoice = false;
@@ -66,6 +66,43 @@
 
             return playerInputAsNumber;
 
+        }
+
+        public string DetermineWinner(string player, string computer)
+        {
+            if (player == computer)
+            {
+                return "It's a tie!";
+            }
+            else if (GameOutcomes[player].Contains(computer))
+            {
+                PlayerScore++;
+                return "You win this round!";
+            }
+            else
+            {
+                ComputerScore++;
+                return "Computer wins this round!";
+            }
+        }
+
+        public bool IsRoundsEqualToZero(bool isHumanPlaying, string result,
+            int numberOfRoundsWithEachOpponent, string playerName, string computerName)
+        {
+            if (result.Contains("It's a tie!") == false)
+            {
+                Rounds--;
+                if (isHumanPlaying)
+                {
+                    RoundAgainstComputer++;
+                }
+            }
+            if(Rounds == 0)
+            {
+                var oneRoundResults = 
+            }
+
+            return true;
         }
     }
 }
