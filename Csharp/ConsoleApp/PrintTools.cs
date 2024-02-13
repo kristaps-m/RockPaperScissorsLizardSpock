@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic;
-
-namespace ConsoleApp
+﻿namespace ConsoleApp
 {
     internal class PrintTools
     {

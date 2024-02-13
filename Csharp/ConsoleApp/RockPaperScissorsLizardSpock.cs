@@ -2,8 +2,8 @@
 {
     internal class RockPaperScissorsLizardSpock
     {
-        public string[] Choices { get; } = new string[] { "rock", "paper", "scissors", "lizard", "spock" };
-        public Dictionary<string, string[]> GameOutcomes { get; } = new Dictionary<string, string[]>()
+        public static string[] Choices { get; } = new string[] { "rock", "paper", "scissors", "lizard", "spock" };
+        public static Dictionary<string, string[]> GameOutcomes { get; } = new Dictionary<string, string[]>()
 {
             // rock beats (scissors and lizard)...
             {"rock", new string[]{ "scissors", "lizard"}},
@@ -20,8 +20,8 @@
         public int ComputerScore { get; set; } = 0;
         public int Rounds { get; set; } = 0;
         public int RoundAgainstComputer { get; set; } = 1;
-        public PrintTools PrintTools { get; set; } = new PrintTools();
-        public ScoreTools ScoreTools { get; set; } = new ScoreTools();
+        private readonly PrintTools PrintTools = new ();
+        private readonly ScoreTools ScoreTools = new (GameOutcomes, Choices);
 
         public string GetPlayerChoiseFromInput(int roundNumber)
         {
