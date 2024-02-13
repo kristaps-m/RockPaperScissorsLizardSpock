@@ -1,27 +1,38 @@
 ﻿// See https,//aka.ms/new-console-template for more information
-Console.WriteLine("Hello RockPaperScissorsLizardSpock");
+using ConsoleApp;
+
+var rpsls = new RockPaperScissorsLizardSpock();
+
+Console.WriteLine($"Hello {string.Join(", ", rpsls.Choises)}");
+var numberOfRounds = rpsls.GetValidPlayerInput("Min and max round", 1, 3);
+var humanWins = 0;
+var computerWins = 0;
 
 
-Dictionary<string, string[]> GAME_OUTCOMES = new Dictionary<string, string[]>()
+while (numberOfRounds > 0)
 {
-    // rock beats (scissors and lizard)...
-    {"rock", new string[]{ "scissors", "lizard"}},
-    {"paper",  new string[]{"rock", "spock"}},
-    {"scissors",  new string[]{"paper", "lizard"}},
-    {"lizard",  new string[]{"paper", "spock"}},
-    {"spock",  new string[]{ "rock", "scissors" }},
-};
+    var computerInput = rpsls.GetComputerChoise();
+    Console.WriteLine(computerInput);
+    string myInput = rpsls.GetPlayerChoiseFromInput(numberOfRounds);
+    if (rpsls.GameOutcomes[myInput].Contains(computerInput))
+    {
+        Console.WriteLine($"Player WON round: {myInput}");
+        humanWins++;
+        numberOfRounds--;
+    }
+    else
+    {
+        Console.WriteLine($"PC WON round! {computerInput}");
+        computerWins++;
+        numberOfRounds--;
+    }
+}
 
-Console.WriteLine(string.Join(", ", GAME_OUTCOMES["rock"]));
-Console.Write("Player enter Rock Paper Scissors Lizard Spock: ");
-var myInput = Console.ReadLine();
-var computerInput = "lizard";
-
-if (GAME_OUTCOMES[myInput.ToLower()].Contains(computerInput))
+if (humanWins > computerWins)
 {
-    Console.WriteLine($"Player WON with: {myInput}");
+    Console.WriteLine("You won!");
 }
 else
 {
-    Console.WriteLine("PC WON!");
+    Console.WriteLine("Computer wins!");
 }
