@@ -12,7 +12,7 @@ namespace ConsoleApp
         // {"'YOU!!'": 9, "'Call of Blanked'": 4, "'Vintage Vegan'": 4, "'Lean fat'": 3, "'Average Taste'": 3, "'Terminator'": 5, "'Super man'": 5, "'Premium Princess'": 8, "'Fat KitKat'": 1, "'Bald Egg'": 3}
         public Dictionary<string, int> PlayerNamesAndGamesWon { get; set; }
         public PrintTools PrintTools { get; set; } = new PrintTools();
-        private RockPaperScissorsLizardSpock rpsls = new RockPaperScissorsLizardSpock();
+        //private RockPaperScissorsLizardSpock rpsls = new RockPaperScissorsLizardSpock();
 
         public void CreateScoresList(int numPlayers)
         {
@@ -95,16 +95,16 @@ namespace ConsoleApp
             Scores[index2][index1] = new Scores(p2, s2, p1, s1);
         }
 
-        public string AutomaticallyPickWinningMoveAgainstComputer(string computerChoice)
-        {
-            List<string> notPickToWin = new List<string>(rpsls.GameOutcomes[computerChoice]);
-            notPickToWin.Add(computerChoice);
-            List<string> winningChoices = rpsls.Choices.Except(notPickToWin).ToList();
-            Random random = new Random();
-            string randomWinningChoice = winningChoices[random.Next(winningChoices.Count)];
+        //public string AutomaticallyPickWinningMoveAgainstComputer(string computerChoice)
+        //{
+        //    List<string> notPickToWin = new List<string>(rpsls.GameOutcomes[computerChoice]);
+        //    notPickToWin.Add(computerChoice);
+        //    List<string> winningChoices = rpsls.Choices.Except(notPickToWin).ToList();
+        //    Random random = new Random();
+        //    string randomWinningChoice = winningChoices[random.Next(winningChoices.Count)];
 
-            return randomWinningChoice;
-        }
+        //    return randomWinningChoice;
+        //}
 
     }
 }

@@ -13,6 +13,9 @@
             {"spock", new string[]{"rock", "scissors" }},
         };
         private readonly Random rand = new Random();
+        private int MinRoundsAndOpponents { get; } = 1;
+        private int MaxOpponents { get; } = 9;
+        private int MaxRounds { get; } = 5;
         public int PlayerScore { get; set; } = 0;
         public int ComputerScore { get; set; } = 0;
         public int Rounds { get; set; } = 0;
@@ -41,7 +44,7 @@
             return playerChoice;
         }
 
-        public string GetComputerChoise()
+        public string GetComputerChoice()
         {
             return Choices[rand.Next(0, Choices.Length)];
         }
@@ -69,6 +72,7 @@
             return playerInputAsNumber;
 
         }
+
 
         public string DetermineWinner(string player, string computer)
         {
@@ -99,7 +103,7 @@
                     RoundAgainstComputer++;
                 }
             }
-            if(Rounds == 0)
+            if (Rounds == 0)
             {
                 var oneRoundResults = PrintTools.ShowOneRoundResults(PlayerScore, ComputerScore, numberOfRoundsWithEachOpponent);
                 ScoreTools.UpdateScores(playerName, PlayerScore, computerName, ComputerScore);
@@ -119,5 +123,76 @@
 
             return false;
         }
+
+        public void PlayGame()
+        {
+            PrintTools.PrintBeginningOfGame(Choices, ScoreTools.Players);
+            string player_name = ScoreTools.PlayerName;
+            int number_of_opponents = GetValidPlayerInput($"Enter number of computer players!",
+                                                           MinRoundsAndOpponents, MaxOpponents);
+            int number_of_rounds_with_each_opponent = GetValidPlayerInput(
+                $"Enter number of rounds with each opponent!", MinRoundsAndOpponents, MaxRounds);
+            Rounds = number_of_rounds_with_each_opponent;
+            ScoreTools.CreateScoresList(number_of_opponents);
+
+            for (int game_nr = 1; game_nr <= number_of_opponents; game_nr++)
+            {
+                Console.WriteLine($"\n\nThis is game {game_nr} against {ScoreTools.Players[game_nr]}");
+                while (true)
+                {
+                    string computer_choice = GetComputerChoice();
+                    //string player_choice = ScoreTools.AutomaticallyPickWinningMoveAgainstComputer(computer_choice);
+                    string player_choice = Console.ReadLine().ToLower();
+                    Console.WriteLine($"You chose: {player_choice}");
+                    Console.WriteLine($"Computer {ScoreTools.Players[game_nr]} chose: {computer_choice}");
+                    string result = DetermineWinner(player_choice, computer_choice);
+                    Console.WriteLine(result);
+
+                    if (IsRoundsEqualToZero(true, result, number_of_rounds_with_each_opponent,
+                                            player_name, ScoreTools.Players[game_nr]))
+                    {
+                        break;
+                    }
+                }
+            }
+
+            // remaining computers play against each other
+            for (int computer_game_index = 1; computer_game_index <= number_of_opponents; computer_game_index++)
+            {
+                string computer_main_player_name = ScoreTools.Players[computer_game_index];
+                for (int computer_opponent_index = 1 + computer_game_index; computer_opponent_index <= number_of_opponents; computer_opponent_index++)
+                {
+                    string cpu_played_against_name = ScoreTools.Players[computer_opponent_index];
+                    while (true)
+                    {
+                        string computer_main_player_choice = GetComputerChoice();
+                        string cpu_played_against_choice = GetComputerChoice();
+                        string result = DetermineWinner(
+                            computer_main_player_choice, cpu_played_against_choice);
+
+                        if (IsRoundsEqualToZero(false, result, number_of_rounds_with_each_opponent,
+                                                computer_main_player_name, cpu_played_against_name))
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            PrintTools.PrintScores(ScoreTools.Scores);
+            ScoreTools.CountGamesWonForEachPlayer(number_of_opponents);
+            Console.WriteLine("-------");
+            ScoreTools.SortAndPrintPlayerNamesAndGamesWon();
+
+            if (ScoreTools.HaveYouWonTheGameWithMostWins())
+            {
+                Console.WriteLine($"\nYou won all {number_of_opponents} computer opponents!\nCongratulations!");
+            }
+            else
+            {
+                Console.WriteLine("\nYou lost against computer!");
+            }
+        }
+
     }
 }

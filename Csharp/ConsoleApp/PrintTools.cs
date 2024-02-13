@@ -4,7 +4,7 @@ namespace ConsoleApp
 {
     internal class PrintTools
     {
-        public void PrintScores(Scores[][] scores)
+        public void PrintScores(List<List<Scores>> scores)
         {
             foreach (var row in scores)
             {
@@ -43,6 +43,13 @@ namespace ConsoleApp
         }
 
         // PrintBeginningOfGame()
+        public void PrintBeginningOfGame(string[] choices, string[] computerNames)
+        {
+            Console.WriteLine($"Welcome to {string.Join(", ", choices.Select(i => i.First().ToString().ToUpper() + i.Substring(1)))}");
+            Console.WriteLine("You can play the game against computer players. And they will play against each other.");
+            Console.WriteLine($"Their names are {string.Join(", ", computerNames.Skip(1))}!");
+            Console.WriteLine("You can pick how many opponents to play and how many rounds against them!");
+        }
 
         // PrintPlayerNameAndVictories()
         public class Constants
