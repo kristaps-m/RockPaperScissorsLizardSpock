@@ -3,7 +3,7 @@ using ConsoleApp;
 
 var rpsls = new RockPaperScissorsLizardSpock();
 
-Console.WriteLine($"Hello {string.Join(", ", rpsls.Choises)}");
+Console.WriteLine($"Hello {string.Join(", ", rpsls.Choices)}");
 var numberOfRounds = rpsls.GetValidPlayerInput("Min and max round", 1, 3);
 var humanWins = 0;
 var computerWins = 0;

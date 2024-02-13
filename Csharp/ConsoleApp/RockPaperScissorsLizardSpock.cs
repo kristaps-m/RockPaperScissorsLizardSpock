@@ -2,7 +2,7 @@
 {
     internal class RockPaperScissorsLizardSpock
     {
-        public string[] Choises { get; } = new string[] { "rock", "paper", "scissors", "lizard", "spock" };
+        public string[] Choices { get; } = new string[] { "rock", "paper", "scissors", "lizard", "spock" };
         public Dictionary<string, string[]> GameOutcomes { get; } = new Dictionary<string, string[]>()
 {
             // rock beats (scissors and lizard)...
@@ -17,6 +17,8 @@
         public int ComputerScore { get; set; } = 0;
         public int Rounds { get; set; } = 0;
         public int RoundAgainstComputer { get; set; } = 1;
+        public PrintTools PrintTools { get; set; } = new PrintTools();
+        public ScoreTools ScoreTools { get; set; } = new ScoreTools();
 
         public string GetPlayerChoiseFromInput(int roundNumber)
         {
@@ -24,9 +26,9 @@
             string playerChoice = "";
             while (!validChoice)
             {
-                Console.WriteLine($"It's round {roundNumber}. Enter your ({string.Join("/", Choises)}) choice : ");
+                Console.WriteLine($"It's round {roundNumber}. Enter your ({string.Join("/", Choices)}) choice : ");
                 playerChoice = Console.ReadLine().ToLower();
-                if (Choises.Contains(playerChoice))
+                if (Choices.Contains(playerChoice))
                 {
                     validChoice = true;
                 }
@@ -41,7 +43,7 @@
 
         public string GetComputerChoise()
         {
-            return Choises[rand.Next(0, Choises.Length)];
+            return Choices[rand.Next(0, Choices.Length)];
         }
 
         public int GetValidPlayerInput(string textPlayerCanSee, int minNumber, int maxNumber)
@@ -99,10 +101,23 @@
             }
             if(Rounds == 0)
             {
-                var oneRoundResults = 
+                var oneRoundResults = PrintTools.ShowOneRoundResults(PlayerScore, ComputerScore, numberOfRoundsWithEachOpponent);
+                ScoreTools.UpdateScores(playerName, PlayerScore, computerName, ComputerScore);
+
+                if (isHumanPlaying)
+                {
+                    Console.WriteLine(oneRoundResults);
+                    RoundAgainstComputer = 1;
+                }
+
+                PlayerScore = 0;
+                ComputerScore = 0;
+                Rounds = numberOfRoundsWithEachOpponent;
+
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
 }
