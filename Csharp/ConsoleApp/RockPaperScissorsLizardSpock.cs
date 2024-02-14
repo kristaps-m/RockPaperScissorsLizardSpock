@@ -2,6 +2,8 @@
 {
     internal class RockPaperScissorsLizardSpock
     {
+
+        public string PlayerName { get; private set; } = "'YOU!!'";
         public static string[] Choices { get; } = new string[] { "rock", "paper", "scissors", "lizard", "spock" };
         public static Dictionary<string, string[]> GameOutcomes { get; } = new Dictionary<string, string[]>()
 {
@@ -20,8 +22,14 @@
         public int ComputerScore { get; set; } = 0;
         public int Rounds { get; set; } = 0;
         public int RoundAgainstComputer { get; set; } = 1;
-        private readonly PrintTools PrintTools = new ();
-        private readonly ScoreTools ScoreTools = new (GameOutcomes, Choices);
+        public PrintTools PrintTools { get; private set; }
+        public ScoreTools ScoreTools { get; private set; }
+        public RockPaperScissorsLizardSpock(string humanPlayerName)
+        {
+            PlayerName = humanPlayerName;
+            PrintTools = new PrintTools(humanPlayerName);
+            ScoreTools = new ScoreTools(GameOutcomes, Choices, PlayerName);
+        }
 
         public string GetPlayerChoiseFromInput(int roundNumber)
         {
@@ -29,7 +37,7 @@
             string playerChoice = "";
             while (!validChoice)
             {
-                Console.WriteLine($"It's round {roundNumber}. Enter your ({string.Join("/", Choices)}) choice : ");
+                Console.Write($"It's round {roundNumber}. Enter your ({string.Join("/", Choices)}) choice : ");
                 playerChoice = Console.ReadLine().ToLower();
                 if (Choices.Contains(playerChoice))
                 {
@@ -55,7 +63,7 @@
             var playerInputAsNumber = 0;
             while (!validChoice)
             {
-                Console.WriteLine($"{textPlayerCanSee}. ({minNumber}-{maxNumber})");
+                Console.Write($"{textPlayerCanSee} ({minNumber}-{maxNumber})\n  :");
                 string? playerInput = Console.ReadLine();
                 bool canConvert = byte.TryParse(playerInput, out byte i);
                 playerInputAsNumber = canConvert ? int.Parse(playerInput) : 1;
@@ -83,12 +91,12 @@
             else if (GameOutcomes[player].Contains(computer))
             {
                 PlayerScore++;
-                return "You win this round!";
+                return $"{PrintTools.GreenColor}You win this round!{PrintTools.ResetColor}";
             }
             else
             {
                 ComputerScore++;
-                return "Computer wins this round!";
+                return $"{PrintTools.RedColor}Computer wins this round!{PrintTools.ResetColor}";
             }
         }
 
@@ -141,8 +149,8 @@
                 while (true)
                 {
                     string computer_choice = GetComputerChoice();
-                    //string player_choice = ScoreTools.AutomaticallyPickWinningMoveAgainstComputer(computer_choice);
-                    string player_choice = Console.ReadLine().ToLower();
+                    string player_choice = ScoreTools.AutomaticallyPickWinningMoveAgainstComputer(computer_choice);
+                    // string player_choice = GetPlayerChoiseFromInput(RoundAgainstComputer);
                     Console.WriteLine($"You chose: {player_choice}");
                     Console.WriteLine($"Computer {ScoreTools.Players[game_nr]} chose: {computer_choice}");
                     string result = DetermineWinner(player_choice, computer_choice);
@@ -193,6 +201,5 @@
                 Console.WriteLine("\nYou lost against computer!");
             }
         }
-
     }
 }

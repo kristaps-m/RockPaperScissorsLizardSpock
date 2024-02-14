@@ -94,9 +94,10 @@ class RockPaperScissorsLizardSpock:
             while True:
                 computer_choice = self.get_computer_choice()
                 # print("----->>>>> " + computer_choice)  # print computer choice for testing
-                # player_choice = self.get_player_choice_from_input(self.round_against_computer)
-                player_choice = self.score_tools.automatically_pick_winning_move_against_computer(
-                    computer_choice)
+                player_choice = self.get_player_choice_from_input(
+                    self.round_against_computer)
+                # player_choice = self.score_tools.automatically_pick_winning_move_against_computer(
+                #     computer_choice)
                 print(f"You chose: {player_choice}")
                 print(
                     f"Computer {self.computer_names[game_nr]} chose: {computer_choice}")

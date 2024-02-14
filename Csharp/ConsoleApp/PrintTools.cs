@@ -2,6 +2,14 @@
 {
     internal class PrintTools
     {
+        public string PlayerName {get;set;} = "";
+        public const string GreenColor = "\u001b[32m";
+        public const string RedColor = "\u001b[31;1m";
+        public const string ResetColor = "\u001b[0m";
+        public PrintTools(string playerName)
+        {
+            PlayerName = playerName;
+        }
         public void PrintScores(List<List<Scores>> scores)
         {
             foreach (var row in scores)
@@ -24,7 +32,7 @@
         public string ShowOneRoundResults(int playerScore, int computerScore, int numberOfRounds)
         {
             var resultStart = $"After {numberOfRounds} rounds ";
-            var resultEnd = $"\nResulst [You - {playerScore} : CPU - {computerScore}";
+            var resultEnd = $"\nResult [You - {playerScore} : CPU - {computerScore}]";
 
             if(playerScore == computerScore)
             {
@@ -40,7 +48,6 @@
             }
         }
 
-        // PrintBeginningOfGame()
         public void PrintBeginningOfGame(string[] choices, string[] computerNames)
         {
             Console.WriteLine($"Welcome to {string.Join(", ", choices.Select(i => i.First().ToString().ToUpper() + i.Substring(1)))}");
@@ -49,13 +56,6 @@
             Console.WriteLine("You can pick how many opponents to play and how many rounds against them!");
         }
 
-        // PrintPlayerNameAndVictories()
-        public class Constants
-        {
-            public const string PlayerName = "PLAYER_NAME";
-            public const string GreenColor = "\u001b[32m";
-            public const string ResetColor = "\u001b[0m";
-        }
         public void PrintPlayerNameAndVictories(Dictionary<string, int> sortedDict, int maxNameLength)
         {
             foreach (var kvp in sortedDict)
@@ -64,9 +64,9 @@
                 int wins = kvp.Value;
                 string paddedName = name.PadRight(maxNameLength, '.');
 
-                if (paddedName.Contains(Constants.PlayerName))
+                if (paddedName.Contains(PlayerName))
                 {
-                    Console.WriteLine($"Player: {Constants.GreenColor}{paddedName}{Constants.ResetColor} Wins: {wins}");
+                    Console.WriteLine($"Player: {GreenColor}{paddedName}{ResetColor} Wins: {wins}");
                 }
                 else
                 {

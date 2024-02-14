@@ -2,22 +2,23 @@
 {
     internal class ScoreTools
     {
-        public List<List<Scores>> Scores { get; set; }
-        public static string PlayerName = "'YOU!!'";
-        public string[] Players { get; } = new string[] { PlayerName, "'Call of Blanked'", "'Vintage Vegan'", "'Lean fat'",
-                           "'Average Taste'", "'Terminator'", "'Super man'",
-                           "'Premium Princess'", "'Fat KitKat'", "'Bald Egg'"};
-        // {"'YOU!!'": 9, "'Call of Blanked'": 4, "'Vintage Vegan'": 4, "'Lean fat'": 3, "'Average Taste'": 3, "'Terminator'": 5, "'Super man'": 5, "'Premium Princess'": 8, "'Fat KitKat'": 1, "'Bald Egg'": 3}
-        public Dictionary<string, int> PlayerNamesAndGamesWon { get; set; }
-
-        private readonly PrintTools PrintTools = new();
+        public List<List<Scores>> Scores { get; set; } = new List<List<Scores>>();
+        public string[] Players { get; private set; }
+        public string PlayerName { get; set; } = "";
+        public Dictionary<string, int> PlayerNamesAndGamesWon { get; set; } = new Dictionary<string, int>();
+        public PrintTools PrintTools { get; private set; }
         private Dictionary<string, string[]> _gameOutcomes {get;}
         private string[] _choices { get; }
-        public ScoreTools(Dictionary<string, string[]> gameOutcomes, string[] choices)
+        public ScoreTools(Dictionary<string, string[]> gameOutcomes, string[] choices, string playerName)
         {
             _gameOutcomes = gameOutcomes;
             _choices = choices;
-        }
+            PlayerName = playerName;
+            Players = new string[] { PlayerName, "'Call of Blanked'", "'Vintage Vegan'", "'Lean fat'",
+                    "'Average Taste'", "'Terminator'", "'Super man'",
+                    "'Premium Princess'", "'Fat KitKat'", "'Bald Egg'"};
+            PrintTools = new PrintTools(playerName);
+    }
 
         public void CreateScoresList(int numPlayers)
         {
@@ -40,7 +41,6 @@
 
         public void GeneratePlayerNamesAndGamesWonDictionary(int numberOfOpponents)
         {
-            //Console.WriteLine(PlayerNamesAndGamesWon); // Assuming PlayerNamesAndGamesWon is already initialized
             PlayerNamesAndGamesWon = new Dictionary<string, int>();
             foreach (var player in Players.Take(numberOfOpponents + 1))
             {
@@ -50,7 +50,6 @@
 
         public void CountGamesWonForEachPlayer(int numberOfOpponents)
         {
-            //Console.WriteLine(scores); // Assuming scores is already initialized
             GeneratePlayerNamesAndGamesWonDictionary(numberOfOpponents);
             foreach (var row in Scores)
             {
@@ -76,7 +75,6 @@
 
         public bool HaveYouWonTheGameWithMostWins()
         {
-            Console.WriteLine(PlayerNamesAndGamesWon);
             int maxWinScore = PlayerNamesAndGamesWon.Values.Max();
             int howManyPlayersHaveMaxScore = 0;
             bool hasPlayerMaxScore = PlayerNamesAndGamesWon.ContainsKey(PlayerName) && PlayerNamesAndGamesWon[PlayerName] == maxWinScore;
@@ -110,6 +108,5 @@
 
             return randomWinningChoice;
         }
-
     }
 }

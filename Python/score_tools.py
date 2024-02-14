@@ -22,12 +22,10 @@ class ScoreTools:
                     self.scores[i].append(None)
 
     def generate_player_names_and_games_won_dictionary(self, number_of_opponents):
-        print(self.player_names_and_games_won)
         self.player_names_and_games_won = {
             k: 0 for k in self.players[:number_of_opponents + 1]}
 
     def count_games_won_for_each_player(self, number_of_opponents):
-        print(self.scores)
         self.generate_player_names_and_games_won_dictionary(
             number_of_opponents)
         for row in self.scores:
