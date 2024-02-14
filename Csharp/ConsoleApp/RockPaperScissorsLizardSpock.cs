@@ -135,29 +135,29 @@
         public void PlayGame()
         {
             PrintTools.PrintBeginningOfGame(Choices, ScoreTools.Players);
-            string player_name = ScoreTools.PlayerName;
-            int number_of_opponents = GetValidPlayerInput($"Enter number of computer players!",
+            string playerName = ScoreTools.PlayerName;
+            int numberOfOpponents = GetValidPlayerInput($"Enter number of computer players!",
                                                            MinRoundsAndOpponents, MaxOpponents);
-            int number_of_rounds_with_each_opponent = GetValidPlayerInput(
+            int numberOfRoundsWithEachOpponent = GetValidPlayerInput(
                 $"Enter number of rounds with each opponent!", MinRoundsAndOpponents, MaxRounds);
-            Rounds = number_of_rounds_with_each_opponent;
-            ScoreTools.CreateScoresList(number_of_opponents);
+            Rounds = numberOfRoundsWithEachOpponent;
+            ScoreTools.CreateScoresList(numberOfOpponents);
 
-            for (int game_nr = 1; game_nr <= number_of_opponents; game_nr++)
+            for (int gameNr = 1; gameNr <= numberOfOpponents; gameNr++)
             {
-                Console.WriteLine($"\n\nThis is game {game_nr} against {ScoreTools.Players[game_nr]}");
+                Console.WriteLine($"\n\nThis is game {gameNr} against {ScoreTools.Players[gameNr]}");
                 while (true)
                 {
                     string computer_choice = GetComputerChoice();
-                    // string player_choice = ScoreTools.AutomaticallyPickWinningMoveAgainstComputer(computer_choice);
-                    string player_choice = GetPlayerChoiseFromInput(RoundAgainstComputer);
-                    Console.WriteLine($"You chose: {player_choice}");
-                    Console.WriteLine($"Computer {ScoreTools.Players[game_nr]} chose: {computer_choice}");
-                    string result = DetermineWinner(player_choice, computer_choice);
+                    // string playerChoice = ScoreTools.AutomaticallyPickWinningMoveAgainstComputer(computer_choice);
+                    string playerChoice = GetPlayerChoiseFromInput(RoundAgainstComputer);
+                    Console.WriteLine($"You chose: {playerChoice}");
+                    Console.WriteLine($"Computer {ScoreTools.Players[gameNr]} chose: {computer_choice}");
+                    string result = DetermineWinner(playerChoice, computer_choice);
                     Console.WriteLine(result);
 
-                    if (IsRoundsEqualToZero(true, result, number_of_rounds_with_each_opponent,
-                                            player_name, ScoreTools.Players[game_nr]))
+                    if (IsRoundsEqualToZero(true, result, numberOfRoundsWithEachOpponent,
+                                            playerName, ScoreTools.Players[gameNr]))
                     {
                         break;
                     }
@@ -165,21 +165,21 @@
             }
 
             // remaining computers play against each other
-            for (int computer_game_index = 1; computer_game_index <= number_of_opponents; computer_game_index++)
+            for (int computerGameIndex = 1; computerGameIndex <= numberOfOpponents; computerGameIndex++)
             {
-                string computer_main_player_name = ScoreTools.Players[computer_game_index];
-                for (int computer_opponent_index = 1 + computer_game_index; computer_opponent_index <= number_of_opponents; computer_opponent_index++)
+                string computerMainPlayerName = ScoreTools.Players[computerGameIndex];
+                for (int computerOpponentIndex = 1 + computerGameIndex; computerOpponentIndex <= numberOfOpponents; computerOpponentIndex++)
                 {
-                    string cpu_played_against_name = ScoreTools.Players[computer_opponent_index];
+                    string cpuPlayedAgainstName = ScoreTools.Players[computerOpponentIndex];
                     while (true)
                     {
-                        string computer_main_player_choice = GetComputerChoice();
-                        string cpu_played_against_choice = GetComputerChoice();
+                        string computerMainPlayerChoice = GetComputerChoice();
+                        string cpuPlayedAgainstChoice = GetComputerChoice();
                         string result = DetermineWinner(
-                            computer_main_player_choice, cpu_played_against_choice);
+                            computerMainPlayerChoice, cpuPlayedAgainstChoice);
 
-                        if (IsRoundsEqualToZero(false, result, number_of_rounds_with_each_opponent,
-                                                computer_main_player_name, cpu_played_against_name))
+                        if (IsRoundsEqualToZero(false, result, numberOfRoundsWithEachOpponent,
+                                                computerMainPlayerName, cpuPlayedAgainstName))
                         {
                             break;
                         }
@@ -188,13 +188,13 @@
             }
 
             PrintTools.PrintScores(ScoreTools.Scores);
-            ScoreTools.CountGamesWonForEachPlayer(number_of_opponents);
+            ScoreTools.CountGamesWonForEachPlayer(numberOfOpponents);
             Console.WriteLine("-------");
             ScoreTools.SortAndPrintPlayerNamesAndGamesWon();
 
             if (ScoreTools.HaveYouWonTheGameWithMostWins())
             {
-                Console.WriteLine($"\nYou won all {number_of_opponents} computer opponents!\nCongratulations!");
+                Console.WriteLine($"\nYou won all {numberOfOpponents} computer opponents!\nCongratulations!");
             }
             else
             {
