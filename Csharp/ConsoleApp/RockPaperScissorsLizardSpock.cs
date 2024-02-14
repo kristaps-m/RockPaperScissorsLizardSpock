@@ -149,8 +149,8 @@
                 while (true)
                 {
                     string computer_choice = GetComputerChoice();
-                    string player_choice = ScoreTools.AutomaticallyPickWinningMoveAgainstComputer(computer_choice);
-                    // string player_choice = GetPlayerChoiseFromInput(RoundAgainstComputer);
+                    // string player_choice = ScoreTools.AutomaticallyPickWinningMoveAgainstComputer(computer_choice);
+                    string player_choice = GetPlayerChoiseFromInput(RoundAgainstComputer);
                     Console.WriteLine($"You chose: {player_choice}");
                     Console.WriteLine($"Computer {ScoreTools.Players[game_nr]} chose: {computer_choice}");
                     string result = DetermineWinner(player_choice, computer_choice);
