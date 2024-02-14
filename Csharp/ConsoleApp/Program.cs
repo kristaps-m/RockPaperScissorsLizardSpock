@@ -1,2 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello RockPaperScissorsLizardSpock");
+﻿using ConsoleApp;
+Console.Write("Welcome To The Game! Enter your name: ");
+var userName = Console.ReadLine();
+var rpsls = new RockPaperScissorsLizardSpock(userName);
+rpsls.PlayGame();
