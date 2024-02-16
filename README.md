@@ -6,6 +6,9 @@
         - [Python wiki](https://en.wikipedia.org/wiki/Python_(programming_language))
         - [www.python.org](https://www.python.org/)
 		
+2. Console game created in Ruby programming language RockPaperScissorsLizardSpock/Ruby
+3. Console game created in Csharp programming language RockPaperScissorsLizardSpock/Csharp
+		
 ### Game Rules:
 ```
 Similar version of the game 'Rock, Paper, Scissors'. It's called 'Rock, Paper, Scissors, Lizard, Spock'.
