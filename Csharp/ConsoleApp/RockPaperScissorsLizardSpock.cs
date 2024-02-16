@@ -164,6 +164,9 @@
                     Console.WriteLine($"Computer {ScoreTools.Players[gameNr]} chose: {computer_choice}");
                     string result = DetermineWinner(playerChoice, computer_choice);
                     Console.WriteLine(result);
+                    // Print scores after each move for testing. If so then comment line 119 (UpdateScores)
+                    //ScoreTools.UpdateScores(playerName, PlayerScore, ScoreTools.Players[gameNr], ComputerScore);
+                    //PrintTools.PrintScores(new List<List<Scores>>() { ScoreTools.Scores[0] });
 
                     if (IsRoundsEqualToZero(true, result, numberOfRoundsWithEachOpponent,
                                             playerName, ScoreTools.Players[gameNr]))
