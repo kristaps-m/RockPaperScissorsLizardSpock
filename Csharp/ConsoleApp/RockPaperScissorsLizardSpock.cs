@@ -4,6 +4,7 @@
     {
 
         public string PlayerName { get; private set; } = "'YOU!!'";
+        public string WinAutomaticaly { get; private set; } = "no";
         public static string[] Choices { get; } = new string[] { "rock", "paper", "scissors", "lizard", "spock" };
         public static Dictionary<string, string[]> GameOutcomes { get; } = new Dictionary<string, string[]>()
 {
@@ -24,11 +25,12 @@
         public int RoundAgainstComputer { get; set; } = 1;
         public PrintTools PrintTools { get; private set; }
         public ScoreTools ScoreTools { get; private set; }
-        public RockPaperScissorsLizardSpock(string humanPlayerName)
+        public RockPaperScissorsLizardSpock(string humanPlayerName, string winAutomaticaly)
         {
             PlayerName = humanPlayerName;
             PrintTools = new PrintTools(humanPlayerName);
             ScoreTools = new ScoreTools(GameOutcomes, Choices, PlayerName);
+            WinAutomaticaly = winAutomaticaly;
         }
 
         public string GetPlayerChoiseFromInput(int roundNumber)
@@ -149,8 +151,15 @@
                 while (true)
                 {
                     string computer_choice = GetComputerChoice();
-                    // string playerChoice = ScoreTools.AutomaticallyPickWinningMoveAgainstComputer(computer_choice);
-                    string playerChoice = GetPlayerChoiseFromInput(RoundAgainstComputer);
+                    string playerChoice = "";
+                    if (WinAutomaticaly == "yes")
+                    {
+                        playerChoice = ScoreTools.AutomaticallyPickWinningMoveAgainstComputer(computer_choice);
+                    }
+                    else
+                    {
+                        playerChoice = GetPlayerChoiseFromInput(RoundAgainstComputer);
+                    }
                     Console.WriteLine($"You chose: {playerChoice}");
                     Console.WriteLine($"Computer {ScoreTools.Players[gameNr]} chose: {computer_choice}");
                     string result = DetermineWinner(playerChoice, computer_choice);
