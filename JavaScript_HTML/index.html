@@ -3,16 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rock, Paper, Scissors, Lizard, Spoc</title>
+    <title>Rock, Paper, Scissors, Lizard, Spock</title>
   </head>
   <body>
-    <p>Rock, Paper, Scissors, Lizard, Spoc</p>
+    <script>
+      function setWeapon(w) {
+        let x = document.getElementById("playerInput");
+        x.value = w;
+        if (autoPlayOnClick) {
+          test();
+        }
+      }
+
+      const toggleAutoPlayOnClick = () => {
+        const x = document.getElementById("autoPlayOnClick");
+        x.textContent = !autoPlayOnClick;
+        return (autoPlayOnClick = !autoPlayOnClick);
+      };
+    </script>
+    <p>Rock, Paper, Scissors, Lizard, Spock</p>
     <p id="randomT">asdasdadas</p>
+    <button onclick="toggleAutoPlayOnClick()">toogle 'autoPlayOnClick'</button>
+    <h3 id="autoPlayOnClick" style="margin: 0rem">true</h3>
+    <br />
+    <h2 id="roundNumber">1</h2>
+    <br />
+    <div>
+      <button onclick="setWeapon('rock')">Rock</button>
+      <button onclick="setWeapon('paper')">Paper</button>
+      <button onclick="setWeapon('scissors')">Scissors</button>
+      <button onclick="setWeapon('lizard')">Lizard</button>
+      <button onclick="setWeapon('SpOck')">Spock</button>
+    </div>
     <label for="playerInput">pick spell :)</label>
     <input type="text" id="playerInput" />
     <button onclick="test()">Play</button>
-    <h3>WINNER</h3>
+    <h4>round winner</h4>
+
     <h1 style="color: chocolate" id="gameResult">...</h1>
+    <h2>3 ROUND WINNER:</h2>
+    <h1 id="threeRoundResult">...</h1>
     <script src="main.js"></script>
   </body>
 </html>

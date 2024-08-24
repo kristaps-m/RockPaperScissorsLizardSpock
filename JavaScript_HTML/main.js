@@ -7,6 +7,10 @@ let gameOutcomes = {
   lizard: ["paper", "spock"],
   spock: ["rock", "scissors"],
 };
+let autoPlayOnClick = true;
+let roundNumber = 1;
+let playerScore = 0;
+let robotScore = 0;
 
 let rT = document.getElementById("randomT");
 
@@ -17,7 +21,30 @@ function test() {
   console.log("YOU", playerInput, gameOutcomes[playerInput]);
   console.log("robot", randomAImove, gameOutcomes[randomAImove]);
   let gameResult = document.getElementById("gameResult");
-  gameResult.textContent = getWinner(playerInput, randomAImove);
+  const theW = getWinner(playerInput, randomAImove);
+  gameResult.textContent = theW;
+
+  let setRoundNumber = document.getElementById("roundNumber");
+  if (theW !== "TIE") {
+    roundNumber++;
+  }
+  if (theW === "Player") {
+    playerScore++;
+  } else if (theW === "robot") {
+    robotScore++;
+  }
+  console.log(`[p=${playerScore} : r= ${robotScore}]`);
+  let threeRoundResult = document.getElementById("threeRoundResult");
+  if (roundNumber === 4) {
+    threeRoundResult.textContent = threeRoundResultAsFunction(
+      playerScore,
+      robotScore
+    );
+  }
+
+  if (roundNumber !== 4) {
+    setRoundNumber.textContent = roundNumber;
+  }
 }
 
 function getWinner(p1choice, p2choice) {
@@ -32,4 +59,12 @@ function getWinner(p1choice, p2choice) {
   }
 
   return w;
+}
+
+function threeRoundResultAsFunction(pS, rS) {
+  if (pS > rS) {
+    return "Player Won!";
+  } else {
+    return "Robot Won ;(";
+  }
 }
