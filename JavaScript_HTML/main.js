@@ -8,42 +8,52 @@ let gameOutcomes = {
   spock: ["rock", "scissors"],
 };
 let autoPlayOnClick = true;
+let haveThreeRoundsEnded = false;
 let roundNumber = 1;
+let previousRoundNumber = roundNumber - 1;
 let playerScore = 0;
 let robotScore = 0;
 
 let rT = document.getElementById("randomT");
 
-function test() {
-  console.clear();
-  let playerInput = document.getElementById("playerInput").value.toLowerCase();
-  let randomAImove = choices[Math.floor(Math.random() * choices.length)];
-  console.log("YOU", playerInput, gameOutcomes[playerInput]);
-  console.log("robot", randomAImove, gameOutcomes[randomAImove]);
-  let gameResult = document.getElementById("gameResult");
-  const theW = getWinner(playerInput, randomAImove);
-  gameResult.textContent = theW;
+function playTheGame() {
+  // Can not play more than 3 rounds at the moment!
+  if(!haveThreeRoundsEnded){
+    console.clear();
+    let playerInput = document.getElementById("playerInput").value.toLowerCase();
+    let randomAImove = choices[Math.floor(Math.random() * choices.length)];
+    console.log("YOU", playerInput, gameOutcomes[playerInput]);
+    console.log("robot", randomAImove, gameOutcomes[randomAImove]);
+    let gameResult = document.getElementById("gameResult");
+    const theW = getWinner(playerInput, randomAImove);
+    gameResult.textContent = theW;
 
-  let setRoundNumber = document.getElementById("roundNumber");
-  if (theW !== "TIE") {
-    roundNumber++;
-  }
-  if (theW === "Player") {
-    playerScore++;
-  } else if (theW === "robot") {
-    robotScore++;
-  }
-  console.log(`[p=${playerScore} : r= ${robotScore}]`);
-  let threeRoundResult = document.getElementById("threeRoundResult");
-  if (roundNumber === 4) {
-    threeRoundResult.textContent = threeRoundResultAsFunction(
-      playerScore,
-      robotScore
-    );
-  }
+    let setRoundNumber = document.getElementById("roundNumber");
+    let setPreviousRoundNumber = document.getElementById("previousRoundNumber");
+    if (theW !== "TIE") {
+      roundNumber++;
+    }
+    if (theW === "Player") {
+      playerScore++;
+    } else if (theW === "robot") {
+      robotScore++;
+    }
+    console.log(`[p=${playerScore} : r= ${robotScore}]`);
+    let threeRoundResult = document.getElementById("threeRoundResult");
+    if (roundNumber === 4) {
+      threeRoundResult.textContent = threeRoundResultAsFunction(
+        playerScore,
+        robotScore
+      );
+      haveThreeRoundsEnded = true;
+    }
+    if (roundNumber !== 5) {
+      setPreviousRoundNumber.textContent = roundNumber - 1;
+    }
+    if (roundNumber !== 4) {
+      setRoundNumber.textContent = roundNumber;
+    }
 
-  if (roundNumber !== 4) {
-    setRoundNumber.textContent = roundNumber;
   }
 }
 

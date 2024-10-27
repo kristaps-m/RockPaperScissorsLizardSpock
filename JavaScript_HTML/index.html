@@ -10,8 +10,8 @@
       function setWeapon(w) {
         let x = document.getElementById("playerInput");
         x.value = w;
-        if (autoPlayOnClick) {
-          test();
+        if (autoPlayOnClick && !haveThreeRoundsEnded) {
+          playTheGame();
         }
       }
 
@@ -22,11 +22,14 @@
       };
     </script>
     <p>Rock, Paper, Scissors, Lizard, Spock</p>
-    <p id="randomT">asdasdadas</p>
+    <!-- <p id="randomT">asdasdadas</p> -->
     <button onclick="toggleAutoPlayOnClick()">toogle 'autoPlayOnClick'</button>
     <h3 id="autoPlayOnClick" style="margin: 0rem">true</h3>
     <br />
-    <h2 id="roundNumber">1</h2>
+    <div style="display: flex;">
+      <h1>Round Number: </h1>
+      <h1 id="roundNumber" style="margin-left:1rem;">1</h1>
+    </div>
     <br />
     <div>
       <button onclick="setWeapon('rock')">Rock</button>
@@ -37,8 +40,11 @@
     </div>
     <label for="playerInput">pick spell :)</label>
     <input type="text" id="playerInput" />
-    <button onclick="test()">Play</button>
-    <h4>round winner</h4>
+    <button onclick="playTheGame()">Play</button>
+    <div style="display: flex;">
+      <h4>round winner</h4>
+      <h4 id="previousRoundNumber" style="margin-left:1rem; color: firebrick;">1</h4>
+    </div>
 
     <h1 style="color: chocolate" id="gameResult">...</h1>
     <h2>3 ROUND WINNER:</h2>
